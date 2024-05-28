@@ -7,10 +7,12 @@
 <div th:replace="~{fragments :: page-header}"></div>
 
 <div class="container body-content">
+
   <!-- Subheading for the job listings -->
   <h2 class="centered">Job Listings</h2>
 </div>
-
+<!-- Define a fragment for job listing table -->
+<div th:fragment="job-listing">
 <!-- Loop through each job passed from the controller -->
 <div th:each="job : ${jobs}">
   <!-- Create a table for each job with the class "job-listing" for styling -->
@@ -45,6 +47,7 @@
       <td th:text="${job.coreCompetency}"></td>
     </tr>
   </table>
+</div>
 </div>
 
 </body>

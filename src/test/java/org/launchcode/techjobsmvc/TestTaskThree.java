@@ -1,13 +1,18 @@
 package org.launchcode.techjobsmvc;
 
+import mockit.Expectations;
+import mockit.Mocked;
 import mockit.Tested;
 import org.junit.jupiter.api.Test;
 import org.launchcode.techjobsmvc.controllers.SearchController;
+import org.launchcode.techjobsmvc.models.JobData;
+import org.springframework.ui.ExtendedModelMap;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 
@@ -80,47 +85,47 @@ public class TestTaskThree {
     /*
      * Checks that displaySearchResults calls JobData.findAll when appropriate
      * */
-//    @Test
-//    public void testDisplaySearchResultsCallsFindAll(@Mocked JobData jobData) throws NoSuchMethodException, ClassNotFoundException, InvocationTargetException, IllegalAccessException {
-//        Class searchControllerClass = Class.forName("org.launchcode.techjobsmvc.controllers.SearchController");
-//        Method displaySearchResultsMethod = searchControllerClass.getMethod("displaySearchResults", Model.class, String.class, String.class);
-//
-//        new Expectations() {{
-//            JobData.findAll();
-//        }};
-//
-//        Model model = new ExtendedModelMap();
-//        displaySearchResultsMethod.invoke(searchController, model, "all", "all");
-//    }
+    @Test
+    public void testDisplaySearchResultsCallsFindAll(@Mocked JobData jobData) throws NoSuchMethodException, ClassNotFoundException, InvocationTargetException, IllegalAccessException {
+        Class searchControllerClass = Class.forName("org.launchcode.techjobsmvc.controllers.SearchController");
+        Method displaySearchResultsMethod = searchControllerClass.getMethod("displaySearchResults", Model.class, String.class, String.class);
+
+        new Expectations() {{
+            JobData.findAll();
+        }};
+
+        Model model = new ExtendedModelMap();
+        displaySearchResultsMethod.invoke(searchController, model, "all", "all");
+    }
 
     /*
      * Checks that displaySearchResults calls JobData.findByColumnAndValue when appropriate
      * */
-//    @Test
-//    public void testDisplaySearchResultsCallsFindByColumnAndValue(@Mocked JobData jobData) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-//        Class searchControllerClass = Class.forName("org.launchcode.techjobsmvc.controllers.SearchController");
-//        Method displaySearchResultsMethod = searchControllerClass.getMethod("displaySearchResults", Model.class, String.class, String.class);
-//
-//        new Expectations() {{
-//            JobData.findByColumnAndValue("skill", "ruby");
-//        }};
-//
-//        Model model = new ExtendedModelMap();
-//        displaySearchResultsMethod.invoke(searchController, model, "skill", "ruby");
-//    }
+    @Test
+    public void testDisplaySearchResultsCallsFindByColumnAndValue(@Mocked JobData jobData) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Class searchControllerClass = Class.forName("org.launchcode.techjobsmvc.controllers.SearchController");
+        Method displaySearchResultsMethod = searchControllerClass.getMethod("displaySearchResults", Model.class, String.class, String.class);
+
+        new Expectations() {{
+            JobData.findByColumnAndValue("skill", "ruby");
+        }};
+
+        Model model = new ExtendedModelMap();
+        displaySearchResultsMethod.invoke(searchController, model, "skill", "ruby");
+    }
 
     /*
      * Checks that displaySearchResults sets the necessary model attributes
      * */
-//    @Test
-//    public void testDisplaySearchResultsSetsModelAtts() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-//        Class searchControllerClass = Class.forName("org.launchcode.techjobsmvc.controllers.SearchController");
-//        Method displaySearchResultsMethod = searchControllerClass.getMethod("displaySearchResults", Model.class, String.class, String.class);
-//        Model model = new ExtendedModelMap();
-//        displaySearchResultsMethod.invoke(searchController, model, "skill", "ruby");
-//        assertNotNull(model.getAttribute("jobs"));
-//        assertNotNull(model.getAttribute("columns"));
-//    }
+   @Test
+   public void testDisplaySearchResultsSetsModelAtts() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Class searchControllerClass = Class.forName("org.launchcode.techjobsmvc.controllers.SearchController");
+        Method displaySearchResultsMethod = searchControllerClass.getMethod("displaySearchResults", Model.class, String.class, String.class);
+        Model model = new ExtendedModelMap();
+        displaySearchResultsMethod.invoke(searchController, model, "skill", "ruby");
+        assertNotNull(model.getAttribute("jobs"));
+        assertNotNull(model.getAttribute("columns"));
+    }
 
 }
 
