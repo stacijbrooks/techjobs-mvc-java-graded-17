@@ -29,27 +29,35 @@ public class SearchController {
 
     // TODO #3 - Create a handler to process a search request and render the updated search view.
 
-    @PostMapping("results")
-    public String displaySearchResults(Model model,
-                                       @RequestParam String searchType,
-                                       @RequestParam String searchTerm) {
+    // Handler method to process search request and display search results
+    @PostMapping(value = "results")
+    public String displaySearchResults(Model model, @RequestParam String searchType, @RequestParam String searchTerm) {
+        // Declare a list to store search results
         ArrayList<Job> jobs;
 
-        // If the search term is "all" or empty, retrieve all jobs.
-        if (searchTerm.toLowerCase().equals("all") || searchTerm.trim().isEmpty()) {
-            jobs = JobData.findAll();
+        // Check if searchType is "all"
+        if (searchType.equals("all")) {
+            // If searchType is "all", check if searchTerm is null or empty
+            if (searchTerm == null || searchTerm.equals("")) {
+                // If searchTerm is null or empty, retrieve all jobs
+                jobs = JobData.findAll();
+                searchTerm = "";  // Set searchTerm to an empty string when it's null or empty
+            } else {
+                // Otherwise, perform a search by value
+                jobs = JobData.findByValue(searchTerm);
+            }
         } else {
-            // Otherwise, search by the specified column and value.
+            // If searchType is not "all", perform a search by column and value
             jobs = JobData.findByColumnAndValue(searchType, searchTerm);
         }
-        System.out.println("Search Type: " + searchType);
-        System.out.println("Search Term: " + searchTerm);
-        System.out.println("Number of Jobs Found: " + jobs.size());
 
-        // Add the list of jobs and the column choices to the model.
+        // Add search results, column choices, searchTerm, and searchType to the model
         model.addAttribute("jobs", jobs);
-        model.addAttribute("columns", columnChoices);
+        model.addAttribute("columns", ListController.columnChoices);
+        model.addAttribute("searchTerm", searchTerm);  // Pass searchTerm to the view
+        model.addAttribute("searchType", searchType);  // Pass searchType to the view
 
+        // Return the name of the view to render
         return "search";
     }
 }
