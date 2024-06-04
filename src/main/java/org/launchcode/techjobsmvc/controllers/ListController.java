@@ -28,13 +28,12 @@ public class ListController {
         columnChoices.put("positionType", "Position Type");
         columnChoices.put("coreCompetency", "Skill");
 
+
         tableChoices.put("employer", JobData.getAllEmployers());
         tableChoices.put("location", JobData.getAllLocations());
         tableChoices.put("positionType", JobData.getAllPositionTypes());
         tableChoices.put("coreCompetency", JobData.getAllCoreCompetency());
 
-        // Add "all" option to columnChoices to display it in the table header
-        columnChoices.put("all", "All");
     }
 
     @GetMapping(value = "")
@@ -64,4 +63,3 @@ public class ListController {
         return "list-jobs";
     }
 }
-

@@ -8,32 +8,40 @@
 
 <div class="container body-content">
   <h1 th:text="${#strings.capitalizeWords(title)}"></h1>
-  <h2 class="centered">View Jobs By Category</h2>
+  <h2 class = "centered">View Jobs By Category</h2>
 </div>
 
 <table class="centeredTable">
   <tr>
-    <!-- Iterate over the columns to create table headers -->
     <th:block th:each="column : ${columns}">
-      <th th:text="${column.value}"></th>
+      <th th:text = "${column.value}"></th>
     </th:block>
   </tr>
   <tr>
-    <!-- Iterate over the columns to create table rows -->
-    <th:block th:each="column : ${columns}">
-      <td>
-        <ul>
-          <!-- If the column is 'all', add a 'View All' link -->
-          <li th:if="${column.key == 'all'}">
-            <a th:href="@{/list/jobs(column='all',value='all')}">View All</a>
-          </li>
-          <!-- Otherwise, add links for each item in the column's value list -->
-          <li th:if="${column.key != 'all'}" th:each="item : ${tableChoices[column.key]}">
-            <a th:href="@{/list/jobs(column=${column.key},value=${item})}" th:text="${item}"></a>
-          </li>
-        </ul>
-      </td>
-    </th:block>
+    <!-- TODO #2: Complete the View Jobs By Category Table. -->
+
+    <!-- HTML table cell containing a link to view all jobs -->
+    <td>
+      <!-- This link points to the '/list/jobs' endpoint with the 'column' parameter set to 'all' -->
+      <a th:href="@{/list/jobs(column='all')}">View All</a>
+    </td>
+
+    <!-- HTML table cell that iterates over each category in 'tableChoices' -->
+    <td th:each="category : ${tableChoices}">
+      <!-- Unordered list to contain the items of the current category -->
+      <ul>
+        <!-- Iterate over each item in the current category's value -->
+        <li th:each="item : ${category.value}">
+          <!--
+          Link to the '/list/jobs' endpoint with:
+          - 'column' parameter set to the current category's key
+          - 'value' parameter set to the current item
+          The link text is set to the current item
+          -->
+          <a th:href="@{/list/jobs(column=${category.key},value=${item})}" th:text="${item}"></a>
+        </li>
+      </ul>
+    </td>
   </tr>
 </table>
 

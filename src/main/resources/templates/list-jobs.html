@@ -12,7 +12,50 @@
 
   <!-- TODO #1 - Use a loop to display job results in a table. -->
 
+  <!-- Iterate over each job in the 'jobs' collection -->
+  <div th:each="job : ${jobs}">
+    <!-- For each job, create a table with the class 'job-listing' -->
+    <table class="job-listing">
+      <!-- Table row for Job ID -->
+      <tr>
+        <th>ID</th>
+        <!-- Display the job's ID in a table data cell -->
+        <td th:text="${job.id}"></td>
+      </tr>
+      <!-- Table row for Employer -->
+      <tr>
+        <th>Employer</th>
+        <!-- Display the job's employer in a table data cell -->
+        <td th:text="${job.employer}"></td>
+      </tr>
+      <!-- Table row for Location -->
+      <tr>
+        <th>Location</th>
+        <!-- Display the job's location in a table data cell -->
+        <td th:text="${job.location}"></td>
+      </tr>
+      <!-- Add more fields as necessary -->
+      <!-- Table row for Name -->
+      <tr>
+        <th>Name</th>
+        <!-- Display the job's name in a table data cell -->
+        <td th:text="${job.name}"></td>
+      </tr>
+      <!-- Table row for Position -->
+      <tr>
+        <th>Position</th>
+        <!-- Display the job's position type in a table data cell -->
+        <td th:text="${job.positionType}"></td>
+      </tr>
+      <!-- Table row for Core Competency -->
+      <tr>
+        <th>Core Competency</th>
+        <!-- Display the job's core competency in a table data cell -->
+        <td th:text="${job.coreCompetency}"></td>
+      </tr>
+      <!-- Add more fields as necessary -->
+    </table>
+  </div>
 </div>
-
 </body>
 </html>

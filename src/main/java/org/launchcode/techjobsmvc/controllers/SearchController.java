@@ -29,35 +29,37 @@ public class SearchController {
 
     // TODO #3 - Create a handler to process a search request and render the updated search view.
 
-    // Handler method to process search request and display search results
     @PostMapping(value = "results")
     public String displaySearchResults(Model model, @RequestParam String searchType, @RequestParam String searchTerm) {
-        // Declare a list to store search results
         ArrayList<Job> jobs;
 
-        // Check if searchType is "all"
+        // Check if the search type is 'all'
         if (searchType.equals("all")) {
-            // If searchType is "all", check if searchTerm is null or empty
+            // If the search term is null or empty
             if (searchTerm == null || searchTerm.equals("")) {
-                // If searchTerm is null or empty, retrieve all jobs
+                // Retrieve all jobs
                 jobs = JobData.findAll();
-                searchTerm = "";  // Set searchTerm to an empty string when it's null or empty
+                // Set searchTerm to an empty string if it is null or empty
+                searchTerm = "";
             } else {
-                // Otherwise, perform a search by value
+                // If the search term is not empty, find jobs by the search term value
                 jobs = JobData.findByValue(searchTerm);
             }
         } else {
-            // If searchType is not "all", perform a search by column and value
+            // If the search type is not 'all', find jobs by the specified column and value
             jobs = JobData.findByColumnAndValue(searchType, searchTerm);
         }
 
-        // Add search results, column choices, searchTerm, and searchType to the model
+        // Add the list of jobs to the model
         model.addAttribute("jobs", jobs);
+        // Add the column choices to the model
         model.addAttribute("columns", ListController.columnChoices);
-        model.addAttribute("searchTerm", searchTerm);  // Pass searchTerm to the view
-        model.addAttribute("searchType", searchType);  // Pass searchType to the view
+        // Add the search term to the model
+        model.addAttribute("searchTerm", searchTerm);
+        // Add the search type to the model
+        model.addAttribute("searchType", searchType);
 
-        // Return the name of the view to render
+        // Return the 'search' view
         return "search";
     }
 }
