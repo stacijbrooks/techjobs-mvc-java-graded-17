@@ -13,7 +13,7 @@
   <!-- TODO #1 - Use a loop to display job results in a table. -->
 
   <!-- Iterate over each job in the 'jobs' collection -->
-  <div th:each="job : ${jobs}">
+  <th:block th:each="job : ${jobs}">
     <!-- For each job, create a table with the class 'job-listing' -->
     <table class="job-listing">
       <!-- Table row for Job ID -->
@@ -55,7 +55,7 @@
       </tr>
       <!-- Add more fields as necessary -->
     </table>
-  </div>
+  </th:block>
 </div>
 </body>
 </html>
