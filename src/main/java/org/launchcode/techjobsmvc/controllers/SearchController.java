@@ -40,7 +40,7 @@ public class SearchController {
                 // Retrieve all jobs
                 jobs = JobData.findAll();
                 // Set searchTerm to an empty string if it is null or empty
-                searchTerm = "";
+                //searchTerm = "";
             } else {
                 // If the search term is not empty, find jobs by the search term value
                 jobs = JobData.findByValue(searchTerm);
